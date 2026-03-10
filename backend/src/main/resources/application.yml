@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: uberi-spring-backend
+
+server:
+  port: 8082
+
+telegram:
+  bot-token: ${TELEGRAM_BOT_TOKEN}
+  # Для канала нужен публичный username (например @uberi) или chat id вида -100...
+  # Инвайт-ссылка формата https://t.me/+... не является chat_id.
+  # Сейчас по умолчанию отправляем в личный чат администратора бота.
+  chat-id: ${TELEGRAM_CHAT_ID:1664044922}
