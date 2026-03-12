@@ -1,0 +1,7 @@
+name = "uberi-api-worker"
+main = "src/index.js"
+compatibility_date = "2026-03-12"
+
+[vars]
+# Можно указать один chat id или список через запятую.
+TELEGRAM_CHAT_ID = "1664044922"

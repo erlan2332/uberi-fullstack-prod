@@ -13,7 +13,7 @@ const TELEGRAM_USERNAME = "Ruslan94_94";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
   || (window.location.hostname === "localhost"
     ? "http://localhost:8082"
-    : "https://uberi-api-vyvoz.fly.dev");
+    : "");
 const PHONE_PATTERN = /^[0-9+()\-\s]{6,30}$/;
 const INITIAL_LEAD_FORM = {
   name: "",
