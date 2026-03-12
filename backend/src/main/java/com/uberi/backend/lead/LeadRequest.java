@@ -1,6 +1,7 @@
 package com.uberi.backend.lead;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -28,6 +29,9 @@ public record LeadRequest(
 
     @NotBlank(message = "Укажите, что нужно забрать")
     @Size(max = 600, message = "Описание слишком длинное")
-    String pickupItems
+    String pickupItems,
+
+    @NotNull(message = "Укажите наличие лифта")
+    Boolean elevatorAvailable
 ) {
 }

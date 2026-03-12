@@ -103,6 +103,7 @@ public class TelegramService {
         + "Телефон: <b>" + escape(request.phone()) + "</b>\n"
         + "Дата выполнения: <b>" + escape(formatExecutionDate(request.executionDate())) + "</b>\n"
         + "Адрес: <b>" + escape(request.address()) + "</b>\n"
+        + "Лифт: <b>" + escape(formatElevatorAvailability(request.elevatorAvailable())) + "</b>\n"
         + "Что нужно забрать: <b>" + escape(request.pickupItems()) + "</b>\n"
         + "Заявка принята: " + currentTime;
   }
@@ -113,6 +114,7 @@ public class TelegramService {
         + "Телефон: " + request.phone() + "\n"
         + "Дата выполнения: " + formatExecutionDate(request.executionDate()) + "\n"
         + "Адрес: " + request.address() + "\n"
+        + "Лифт: " + formatElevatorAvailability(request.elevatorAvailable()) + "\n"
         + "Что нужно забрать: " + request.pickupItems();
     String encodedText = URLEncoder.encode(shareText, StandardCharsets.UTF_8);
     String encodedUrl = URLEncoder.encode("https://t.me/uberi_ru_bot", StandardCharsets.UTF_8);
@@ -239,6 +241,16 @@ public class TelegramService {
     } catch (DateTimeParseException ex) {
       return dateValue;
     }
+  }
+
+  private String formatElevatorAvailability(Boolean elevatorAvailable) {
+    if (Boolean.TRUE.equals(elevatorAvailable)) {
+      return "Есть";
+    }
+    if (Boolean.FALSE.equals(elevatorAvailable)) {
+      return "Нет";
+    }
+    return "Не указано";
   }
 
   private String getBotTokenOrThrow() {

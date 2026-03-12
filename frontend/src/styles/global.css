@@ -593,6 +593,33 @@ section{ scroll-margin-top: 92px; }
   font-weight: 700;
 }
 
+.switchGroup{
+  display: inline-flex;
+  gap: 8px;
+}
+
+.switchBtn{
+  border: 1px solid rgba(15,23,42,.14);
+  background: rgba(255,255,255,.92);
+  color: rgba(15,23,42,.84);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 140ms var(--ease), box-shadow 140ms var(--ease), border-color 140ms var(--ease), background 140ms var(--ease);
+}
+
+.switchBtn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(2,6,23,.10);
+}
+
+.switchBtn--active{
+  background: linear-gradient(180deg, #111827, #0f172a);
+  border-color: #0f172a;
+  color: #ffffff;
+}
+
 .formMessage{
   margin-top: 10px;
   padding: 10px 12px;

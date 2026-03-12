@@ -21,6 +21,7 @@ const INITIAL_LEAD_FORM = {
   executionDate: "",
   address: "",
   pickupItems: "",
+  hasElevator: true,
 };
 
 const IMAGES = {
@@ -39,9 +40,9 @@ const kpis = [
 
 const rows = [
   {
-    title: "Вечерний вывоз (после 18:00)",
-    desc: "Для тех, кто занят днём. Приезжаем в вечерний интервал и всё аккуратно выносим.",
-    date: "Ежедневно",
+    title: "Вывоз крупногабаритных вещей",
+    desc: "Шкафы, диваны, ванны и тяжёлые предметы — аккуратно вынесем и вывезем.",
+    date: "По записи",
   },
   {
     title: "Вывоз техники",
@@ -60,7 +61,7 @@ const rows = [
   },
 ];
 
-const icons = ["🕘", "🧺", "🛋️", "♻️"];
+const icons = ["🚚", "🧺", "🛋️", "♻️"];
 
 function WhatsappIcon() {
   return (
@@ -127,6 +128,7 @@ export default function Home() {
       executionDate: leadForm.executionDate.trim(),
       address: leadForm.address.trim(),
       pickupItems: leadForm.pickupItems.trim(),
+      elevatorAvailable: leadForm.hasElevator,
     };
     const validationErrors = validateLeadForm(payload);
 
@@ -393,7 +395,7 @@ export default function Home() {
             <h2 className="section__title">Вывоз мусора, мебели и техники</h2>
             <p className="section__hint">
               Работаем с частными и коммерческими заявками. Вывозим старую мебель, бытовую технику,
-              телевизоры, холодильники, диваны, шкафы и строительный мусор.
+              телевизоры, холодильники, диваны, шкафы, ванны и строительный мусор.
             </p>
           </div>
         </div>
@@ -404,6 +406,7 @@ export default function Home() {
             <ul className="seoList">
               <li>Вывоз телевизора, стиральной машины, холодильника</li>
               <li>Вывоз дивана, шкафа, кровати, матраса</li>
+              <li>Вывоз металлической ванны и сантехники</li>
               <li>Вывоз хлама из квартиры, офиса, гаража</li>
               <li>Вывоз строительного мусора после ремонта</li>
             </ul>
@@ -450,7 +453,7 @@ export default function Home() {
 
         <div className="grid2">
           <div className="card">
-            <div className="card__title">Связаться напрямую</div>
+            <div className="card__title">Связаться</div>
             <div className="contactsInline" style={{ marginTop: 14 }}>
               <a
                 className="link contactsInline__phone"
@@ -558,6 +561,26 @@ export default function Home() {
               />
               {leadFormErrors.address && <div className="fieldError">{leadFormErrors.address}</div>}
             </label>
+
+            <div className="field">
+              Лифт
+              <div className="switchGroup" role="group" aria-label="Наличие лифта">
+                <button
+                  type="button"
+                  className={`switchBtn ${leadForm.hasElevator ? "switchBtn--active" : ""}`}
+                  onClick={() => setLeadForm((prev) => ({ ...prev, hasElevator: true }))}
+                >
+                  Есть
+                </button>
+                <button
+                  type="button"
+                  className={`switchBtn ${!leadForm.hasElevator ? "switchBtn--active" : ""}`}
+                  onClick={() => setLeadForm((prev) => ({ ...prev, hasElevator: false }))}
+                >
+                  Нет
+                </button>
+              </div>
+            </div>
 
             <label className="field">
               Что нужно забрать
