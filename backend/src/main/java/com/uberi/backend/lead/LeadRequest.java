@@ -12,6 +12,30 @@ public record LeadRequest(
     @NotBlank(message = "Телефон обязателен")
     @Size(max = 30, message = "Телефон слишком длинный")
     @Pattern(regexp = "^[0-9+()\\-\\s]{6,30}$", message = "Некорректный формат телефона")
-    String phone
+    String phone,
+
+    @NotBlank(message = "Дата выполнения обязательна")
+    @Size(max = 20, message = "Дата выполнения слишком длинная")
+    @Pattern(
+        regexp = "^(\\d{4}-\\d{2}-\\d{2}|\\d{2}\\.\\d{2}\\.\\d{4})$",
+        message = "Дата: используйте формат ГГГГ-ММ-ДД или ДД.ММ.ГГГГ"
+    )
+    String executionDate,
+
+    @NotBlank(message = "Время выполнения обязательно")
+    @Size(max = 80, message = "Время выполнения слишком длинное")
+    String executionTime,
+
+    @NotBlank(message = "Адрес обязателен")
+    @Size(max = 220, message = "Адрес слишком длинный")
+    String address,
+
+    @NotBlank(message = "Укажите, что нужно забрать")
+    @Size(max = 600, message = "Описание слишком длинное")
+    String pickupItems,
+
+    @NotBlank(message = "Укажите сумму оплаты")
+    @Size(max = 80, message = "Сумма оплаты слишком длинная")
+    String clientPayment
 ) {
 }

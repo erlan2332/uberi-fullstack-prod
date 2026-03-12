@@ -6,12 +6,24 @@ import trackMers from "../img/screenshot_2022_06_21_at_17_30_44_sprinter_limited
 import houseImg from "../img/794.7b.jpg"
 import humanEmployee from "../img/two-trained-furniture-movers-team-600nw-2648392553.webp"
 
-const CONTACT_PHONE = "+7 (933) 711-33-06";
-const CONTACT_PHONE_FOR_TEL = CONTACT_PHONE.replace(/[^\d+]/g, "");
+const CONTACT_PHONE = "+7 967 257-64-36";
 const CONTACT_PHONE_FOR_WHATSAPP = CONTACT_PHONE.replace(/\D/g, "");
+const WHATSAPP_LINK = `https://wa.me/${CONTACT_PHONE_FOR_WHATSAPP}`;
 const TELEGRAM_USERNAME = "Ruslan94_94";
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || (window.location.hostname === "localhost" ? "http://localhost:8082" : "");
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
+  || (window.location.hostname === "localhost"
+    ? "http://localhost:8082"
+    : "https://uberi-backend-erlan2332.fly.dev");
 const PHONE_PATTERN = /^[0-9+()\-\s]{6,30}$/;
+const INITIAL_LEAD_FORM = {
+  name: "",
+  phone: "",
+  executionDate: "",
+  executionTime: "",
+  address: "",
+  pickupItems: "",
+  clientPayment: "",
+};
 
 const IMAGES = {
   about: "https://picsum.photos/seed/ubere-about/1200/800",
@@ -68,7 +80,7 @@ function TelegramIcon() {
   );
 }
 
-function validateLeadForm({ name, phone }) {
+function validateLeadForm({ name, phone, executionDate, executionTime, address, pickupItems, clientPayment }) {
   const errors = {};
 
   if (!name) {
@@ -83,11 +95,39 @@ function validateLeadForm({ name, phone }) {
     errors.phone = "Телефон: 6-30 символов, только цифры и + ( ) -";
   }
 
+  if (!executionDate) {
+    errors.executionDate = "Укажите дату выполнения";
+  }
+
+  if (!executionTime) {
+    errors.executionTime = "Укажите время выполнения";
+  } else if (executionTime.length > 80) {
+    errors.executionTime = "Время должно быть не длиннее 80 символов";
+  }
+
+  if (!address) {
+    errors.address = "Укажите адрес";
+  } else if (address.length > 220) {
+    errors.address = "Адрес должен быть не длиннее 220 символов";
+  }
+
+  if (!pickupItems) {
+    errors.pickupItems = "Укажите, что нужно забрать";
+  } else if (pickupItems.length > 600) {
+    errors.pickupItems = "Описание должно быть не длиннее 600 символов";
+  }
+
+  if (!clientPayment) {
+    errors.clientPayment = "Укажите сумму оплаты";
+  } else if (clientPayment.length > 80) {
+    errors.clientPayment = "Сумма оплаты должна быть не длиннее 80 символов";
+  }
+
   return errors;
 }
 
 export default function Home() {
-  const [leadForm, setLeadForm] = useState({ name: "", phone: "" });
+  const [leadForm, setLeadForm] = useState(INITIAL_LEAD_FORM);
   const [leadFormErrors, setLeadFormErrors] = useState({});
   const [isSubmittingLead, setIsSubmittingLead] = useState(false);
   const [leadSubmitState, setLeadSubmitState] = useState({ type: "idle", message: "" });
@@ -95,9 +135,16 @@ export default function Home() {
   async function handleLeadSubmit(event) {
     event.preventDefault();
 
-    const name = leadForm.name.trim();
-    const phone = leadForm.phone.trim();
-    const validationErrors = validateLeadForm({ name, phone });
+    const payload = {
+      name: leadForm.name.trim(),
+      phone: leadForm.phone.trim(),
+      executionDate: leadForm.executionDate.trim(),
+      executionTime: leadForm.executionTime.trim(),
+      address: leadForm.address.trim(),
+      pickupItems: leadForm.pickupItems.trim(),
+      clientPayment: leadForm.clientPayment.trim(),
+    };
+    const validationErrors = validateLeadForm(payload);
 
     if (Object.keys(validationErrors).length > 0) {
       setLeadFormErrors(validationErrors);
@@ -118,7 +165,7 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, phone }),
+        body: JSON.stringify(payload),
       });
 
       const responseBody = await response.json().catch(() => null);
@@ -135,12 +182,14 @@ export default function Home() {
         type: "success",
         message: responseBody?.message || "Заявка отправлена. Скоро свяжемся с вами.",
       });
-      setLeadForm({ name: "", phone: "" });
+      setLeadForm(INITIAL_LEAD_FORM);
       setLeadFormErrors({});
     } catch (error) {
       setLeadSubmitState({
         type: "error",
-        message: "Не удалось отправить заявку. Попробуйте ещё раз.",
+        message: error instanceof TypeError
+          ? `Нет соединения с сервером. Запустите backend.`
+          : "Не удалось отправить заявку. Попробуйте ещё раз.",
       });
     } finally {
       setIsSubmittingLead(false);
@@ -152,14 +201,21 @@ export default function Home() {
       {/* HERO */}
       <section className="hero">
         <div className="hero__media">
-          <img className="hero__img" src={imgPageHouse} alt="Фоновое фото" loading="lazy" />
+          <img
+            className="hero__img"
+            src={imgPageHouse}
+            alt="Вывоз мебели и техники по всей России"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+          />
           <div className="hero__overlay" />
           <h1 className="hero__title">Убери лишнее</h1>
 
           <div className="hero__panel">
             <div className="hero__panelText">
               Вывоз ненужных вещей, техники и мебели — быстро и аккуратно.
-              По всей России.
+              <span className="hero__panelAccent">По всей России.</span>
             </div>
 
             <div className="hero__panelActions">
@@ -377,12 +433,18 @@ export default function Home() {
           <div className="card">
             <div className="card__title">Связаться напрямую</div>
             <div className="contactsInline" style={{ marginTop: 14 }}>
-              <a className="link contactsInline__phone" href={`tel:${CONTACT_PHONE_FOR_TEL}`}>
+              <a
+                className="link contactsInline__phone"
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Написать в WhatsApp ${CONTACT_PHONE}`}
+              >
                 {CONTACT_PHONE}
               </a>
               <a
                 className="messengerChip messengerChip--wa"
-                href={`https://wa.me/${CONTACT_PHONE_FOR_WHATSAPP}`}
+                href={WHATSAPP_LINK}
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`WhatsApp ${CONTACT_PHONE}`}
@@ -434,13 +496,97 @@ export default function Home() {
                   setLeadForm((prev) => ({ ...prev, phone: value }));
                   setLeadFormErrors((prev) => ({ ...prev, phone: undefined }));
                 }}
-                pattern="[0-9+()\\-\\s]{6,30}"
                 minLength={6}
                 maxLength={30}
                 inputMode="tel"
                 required
               />
               {leadFormErrors.phone && <div className="fieldError">{leadFormErrors.phone}</div>}
+            </label>
+
+            <label className="field">
+              Дата выполнения
+              <input
+                className="input"
+                type="date"
+                value={leadForm.executionDate}
+                onChange={(event) => {
+                  const value = event.target.value;
+                  setLeadForm((prev) => ({ ...prev, executionDate: value }));
+                  setLeadFormErrors((prev) => ({ ...prev, executionDate: undefined }));
+                }}
+                required
+              />
+              {leadFormErrors.executionDate && <div className="fieldError">{leadFormErrors.executionDate}</div>}
+            </label>
+
+            <label className="field">
+              Время выполнения
+              <input
+                className="input"
+                placeholder="15:00 - 21:00"
+                value={leadForm.executionTime}
+                onChange={(event) => {
+                  const value = event.target.value;
+                  setLeadForm((prev) => ({ ...prev, executionTime: value }));
+                  setLeadFormErrors((prev) => ({ ...prev, executionTime: undefined }));
+                }}
+                maxLength={80}
+                required
+              />
+              {leadFormErrors.executionTime && <div className="fieldError">{leadFormErrors.executionTime}</div>}
+            </label>
+
+            <label className="field">
+              Адрес
+              <input
+                className="input"
+                placeholder="область, город, улица, дом"
+                value={leadForm.address}
+                onChange={(event) => {
+                  const value = event.target.value;
+                  setLeadForm((prev) => ({ ...prev, address: value }));
+                  setLeadFormErrors((prev) => ({ ...prev, address: undefined }));
+                }}
+                maxLength={220}
+                required
+              />
+              {leadFormErrors.address && <div className="fieldError">{leadFormErrors.address}</div>}
+            </label>
+
+            <label className="field">
+              Что нужно забрать
+              <textarea
+                className="input input--textarea"
+                placeholder="Например: диван, холодильник, 10 мешков мусора"
+                value={leadForm.pickupItems}
+                onChange={(event) => {
+                  const value = event.target.value;
+                  setLeadForm((prev) => ({ ...prev, pickupItems: value }));
+                  setLeadFormErrors((prev) => ({ ...prev, pickupItems: undefined }));
+                }}
+                rows={3}
+                maxLength={600}
+                required
+              />
+              {leadFormErrors.pickupItems && <div className="fieldError">{leadFormErrors.pickupItems}</div>}
+            </label>
+
+            <label className="field">
+              Сколько заплатит клиент
+              <input
+                className="input"
+                placeholder="Например: 5000 ₽"
+                value={leadForm.clientPayment}
+                onChange={(event) => {
+                  const value = event.target.value;
+                  setLeadForm((prev) => ({ ...prev, clientPayment: value }));
+                  setLeadFormErrors((prev) => ({ ...prev, clientPayment: undefined }));
+                }}
+                maxLength={80}
+                required
+              />
+              {leadFormErrors.clientPayment && <div className="fieldError">{leadFormErrors.clientPayment}</div>}
             </label>
 
             <div className="row">

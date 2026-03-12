@@ -1,3 +1,4 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Disallow:
+Host: https://uberi-frontend-erlan2332.fly.dev
+Sitemap: https://uberi-frontend-erlan2332.fly.dev/sitemap.xml

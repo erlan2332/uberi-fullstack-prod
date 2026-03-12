@@ -251,6 +251,10 @@ section{ scroll-margin-top: 92px; }
   color: rgba(15,23,42,.78);
   line-height: 1.45;
 }
+.hero__panelAccent{
+  display: block;
+  font-weight: 900;
+}
 .hero__panelActions{
   display:flex;
   gap: 10px;
@@ -558,6 +562,10 @@ section{ scroll-margin-top: 92px; }
   outline:none;
 }
 .input:focus{ border-color: rgba(17,24,39,.45); }
+.input--textarea{
+  min-height: 96px;
+  resize: vertical;
+}
 
 .fieldError{
   font-size: 12px;
