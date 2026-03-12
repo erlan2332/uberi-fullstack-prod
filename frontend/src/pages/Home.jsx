@@ -13,7 +13,7 @@ const TELEGRAM_USERNAME = "Ruslan94_94";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
   || (window.location.hostname === "localhost"
     ? "http://localhost:8082"
-    : "https://uberi-backend-erlan2332.fly.dev");
+    : "https://uberi-api-vyvoz.fly.dev");
 const PHONE_PATTERN = /^[0-9+()\-\s]{6,30}$/;
 const INITIAL_LEAD_FORM = {
   name: "",
@@ -398,6 +398,41 @@ export default function Home() {
                 <span className="tagPill__sub">{s.tag}</span>
               </button>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SEO CONTENT */}
+      <section className="section seoBlock" id="vyvoz-musora-mebeli-tekhniki">
+        <div className="sectionHead">
+          <div>
+            <h2 className="section__title">Вывоз мусора, мебели и техники</h2>
+            <p className="section__hint">
+              Работаем с частными и коммерческими заявками. Вывозим старую мебель, бытовую технику,
+              телевизоры, холодильники, диваны, шкафы и строительный мусор.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid2">
+          <div className="card">
+            <div className="card__title">Что вывозим</div>
+            <ul className="seoList">
+              <li>Вывоз телевизора, стиральной машины, холодильника</li>
+              <li>Вывоз дивана, шкафа, кровати, матраса</li>
+              <li>Вывоз хлама из квартиры, офиса, гаража</li>
+              <li>Вывоз строительного мусора после ремонта</li>
+            </ul>
+          </div>
+
+          <div className="card">
+            <div className="card__title">Частые вопросы</div>
+            <div className="seoFaq">
+              <h3>Сколько стоит вывоз мебели и мусора?</h3>
+              <p>Стоимость зависит от объёма, этажа, лифта и сложности выноса. Итог согласуем до выезда.</p>
+              <h3>Можно ли заказать вывоз в день обращения?</h3>
+              <p>Да, если есть свободный интервал. Обычно подтверждаем заявку в течение 15 минут.</p>
+            </div>
           </div>
         </div>
       </section>

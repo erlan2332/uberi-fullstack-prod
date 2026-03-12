@@ -2,7 +2,8 @@
 <html lang="ru">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="%PUBLIC_URL%/favicon.svg" />
+    <link rel="alternate icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0f172a" />
     <meta name="application-name" content="Убери" />
@@ -15,8 +16,8 @@
       name="keywords"
       content="вывоз вещей, вывоз мебели, вывоз техники, вывоз мусора, утилизация, вывоз хлама, заказать вывоз"
     />
-    <link rel="canonical" href="https://uberi-frontend-erlan2332.fly.dev/" />
-    <link rel="preconnect" href="https://uberi-backend-erlan2332.fly.dev" crossorigin />
+    <link rel="canonical" href="https://uberi-vyvoz.fly.dev/" />
+    <link rel="preconnect" href="https://uberi-api-vyvoz.fly.dev" crossorigin />
 
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:type" content="website" />
@@ -26,8 +27,8 @@
       property="og:description"
       content="Оставьте заявку на вывоз ненужных вещей, мебели и техники. Быстрый расчёт, фиксированная стоимость и аккуратный вывоз."
     />
-    <meta property="og:url" content="https://uberi-frontend-erlan2332.fly.dev/" />
-    <meta property="og:image" content="https://uberi-frontend-erlan2332.fly.dev/logo512.png" />
+    <meta property="og:url" content="https://uberi-vyvoz.fly.dev/" />
+    <meta property="og:image" content="https://uberi-vyvoz.fly.dev/logo512.png" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Убери - вывоз вещей, мебели и техники по России" />
@@ -35,14 +36,14 @@
       name="twitter:description"
       content="Оставьте заявку онлайн: дата, время, адрес, список вещей и стоимость. Работаем по всей России."
     />
-    <meta name="twitter:image" content="https://uberi-frontend-erlan2332.fly.dev/logo512.png" />
+    <meta name="twitter:image" content="https://uberi-vyvoz.fly.dev/logo512.png" />
 
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "Убери",
-        "url": "https://uberi-frontend-erlan2332.fly.dev/",
+        "url": "https://uberi-vyvoz.fly.dev/",
         "telephone": "+79672576436",
         "description": "Вывоз ненужных вещей, мебели, техники и мусора. Приём заявки онлайн.",
         "areaServed": {
@@ -52,6 +53,30 @@
         "sameAs": [
           "https://wa.me/79672576436",
           "https://t.me/uberi_ru_bot"
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Вы вывозите телевизоры и бытовую технику?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Да, вывозим телевизоры, холодильники, стиральные машины и другую технику по заявке."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Вывозите ли старую мебель и строительный мусор?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Да, вывозим диваны, шкафы, матрасы и строительный мусор. Стоимость согласуем до выезда."
+            }
+          }
         ]
       }
     </script>

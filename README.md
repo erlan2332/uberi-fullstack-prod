@@ -6,8 +6,8 @@
 
 ## Прод URL
 
-- Frontend: `https://uberi-frontend-erlan2332.fly.dev`
-- Backend API: `https://uberi-backend-erlan2332.fly.dev`
+- Frontend: `https://uberi-vyvoz.fly.dev`
+- Backend API: `https://uberi-api-vyvoz.fly.dev`
 
 ## Быстрый деплой на удалённый сервер (Ubuntu + Docker)
 

@@ -1,4 +1,4 @@
-app = "uberi-backend-erlan2332"
+app = "uberi-api-vyvoz"
 primary_region = "ams"
 
 [build]

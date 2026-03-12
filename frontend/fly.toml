@@ -1,10 +1,10 @@
-app = "uberi-frontend-erlan2332"
+app = "uberi-vyvoz"
 primary_region = "ams"
 
 [build]
   dockerfile = "Dockerfile"
   [build.args]
-    REACT_APP_API_BASE_URL = "https://uberi-backend-erlan2332.fly.dev"
+    REACT_APP_API_BASE_URL = "https://uberi-api-vyvoz.fly.dev"
 
 [http_service]
   internal_port = 80
