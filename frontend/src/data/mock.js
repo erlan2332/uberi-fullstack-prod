@@ -12,7 +12,7 @@ export const popularServices = [
   { name: "Старый диван", tag: "Мебель" },
   { name: "Матрас", tag: "Мебель" },
   { name: "Металлическая дверь", tag: "Металл" },
-  { name: "Металлическая ванна", tag: "Металл" },
+  { name: "Чугунная ванна", tag: "Металл" },
 ];
 
 export const stats = [
