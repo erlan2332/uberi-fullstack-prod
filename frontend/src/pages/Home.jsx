@@ -549,7 +549,7 @@ export default function Home() {
               Адрес
               <input
                 className="input"
-                placeholder="область, город, улица, дом"
+                placeholder="область, город, улица, дом, квартира, подъезд, этаж, домофон"
                 value={leadForm.address}
                 onChange={(event) => {
                   const value = event.target.value;
