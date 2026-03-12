@@ -19,10 +19,8 @@ const INITIAL_LEAD_FORM = {
   name: "",
   phone: "",
   executionDate: "",
-  executionTime: "",
   address: "",
   pickupItems: "",
-  clientPayment: "",
 };
 
 const IMAGES = {
@@ -80,7 +78,7 @@ function TelegramIcon() {
   );
 }
 
-function validateLeadForm({ name, phone, executionDate, executionTime, address, pickupItems, clientPayment }) {
+function validateLeadForm({ name, phone, executionDate, address, pickupItems }) {
   const errors = {};
 
   if (!name) {
@@ -99,12 +97,6 @@ function validateLeadForm({ name, phone, executionDate, executionTime, address, 
     errors.executionDate = "Укажите дату выполнения";
   }
 
-  if (!executionTime) {
-    errors.executionTime = "Укажите время выполнения";
-  } else if (executionTime.length > 80) {
-    errors.executionTime = "Время должно быть не длиннее 80 символов";
-  }
-
   if (!address) {
     errors.address = "Укажите адрес";
   } else if (address.length > 220) {
@@ -115,12 +107,6 @@ function validateLeadForm({ name, phone, executionDate, executionTime, address, 
     errors.pickupItems = "Укажите, что нужно забрать";
   } else if (pickupItems.length > 600) {
     errors.pickupItems = "Описание должно быть не длиннее 600 символов";
-  }
-
-  if (!clientPayment) {
-    errors.clientPayment = "Укажите сумму оплаты";
-  } else if (clientPayment.length > 80) {
-    errors.clientPayment = "Сумма оплаты должна быть не длиннее 80 символов";
   }
 
   return errors;
@@ -139,10 +125,8 @@ export default function Home() {
       name: leadForm.name.trim(),
       phone: leadForm.phone.trim(),
       executionDate: leadForm.executionDate.trim(),
-      executionTime: leadForm.executionTime.trim(),
       address: leadForm.address.trim(),
       pickupItems: leadForm.pickupItems.trim(),
-      clientPayment: leadForm.clientPayment.trim(),
     };
     const validationErrors = validateLeadForm(payload);
 
@@ -502,6 +486,9 @@ export default function Home() {
 
           <form className="card contactsForm" onSubmit={handleLeadSubmit}>
             <div className="card__title">Заказать звонок</div>
+            <div className="muted" style={{ marginTop: 8 }}>
+              Подготовьте фото для расчета стоимости.
+            </div>
 
             <label className="field">
               Имя
@@ -556,23 +543,6 @@ export default function Home() {
             </label>
 
             <label className="field">
-              Время выполнения
-              <input
-                className="input"
-                placeholder="15:00 - 21:00"
-                value={leadForm.executionTime}
-                onChange={(event) => {
-                  const value = event.target.value;
-                  setLeadForm((prev) => ({ ...prev, executionTime: value }));
-                  setLeadFormErrors((prev) => ({ ...prev, executionTime: undefined }));
-                }}
-                maxLength={80}
-                required
-              />
-              {leadFormErrors.executionTime && <div className="fieldError">{leadFormErrors.executionTime}</div>}
-            </label>
-
-            <label className="field">
               Адрес
               <input
                 className="input"
@@ -605,23 +575,6 @@ export default function Home() {
                 required
               />
               {leadFormErrors.pickupItems && <div className="fieldError">{leadFormErrors.pickupItems}</div>}
-            </label>
-
-            <label className="field">
-              Сколько заплатит клиент
-              <input
-                className="input"
-                placeholder="Например: 5000 ₽"
-                value={leadForm.clientPayment}
-                onChange={(event) => {
-                  const value = event.target.value;
-                  setLeadForm((prev) => ({ ...prev, clientPayment: value }));
-                  setLeadFormErrors((prev) => ({ ...prev, clientPayment: undefined }));
-                }}
-                maxLength={80}
-                required
-              />
-              {leadFormErrors.clientPayment && <div className="fieldError">{leadFormErrors.clientPayment}</div>}
             </label>
 
             <div className="row">

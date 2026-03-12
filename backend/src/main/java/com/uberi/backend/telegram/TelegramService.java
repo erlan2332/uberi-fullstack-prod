@@ -102,10 +102,8 @@ public class TelegramService {
         + "Имя: <b>" + escape(request.name()) + "</b>\n"
         + "Телефон: <b>" + escape(request.phone()) + "</b>\n"
         + "Дата выполнения: <b>" + escape(formatExecutionDate(request.executionDate())) + "</b>\n"
-        + "Время выполнения: <b>" + escape(request.executionTime()) + "</b>\n"
         + "Адрес: <b>" + escape(request.address()) + "</b>\n"
-        + "Что забрать: <b>" + escape(request.pickupItems()) + "</b>\n"
-        + "Оплата клиента: <b>" + escape(request.clientPayment()) + "</b>\n"
+        + "Что нужно забрать: <b>" + escape(request.pickupItems()) + "</b>\n"
         + "Заявка принята: " + currentTime;
   }
 
@@ -114,10 +112,8 @@ public class TelegramService {
         + "Имя: " + request.name() + "\n"
         + "Телефон: " + request.phone() + "\n"
         + "Дата выполнения: " + formatExecutionDate(request.executionDate()) + "\n"
-        + "Время выполнения: " + request.executionTime() + "\n"
         + "Адрес: " + request.address() + "\n"
-        + "Что забрать: " + request.pickupItems() + "\n"
-        + "Оплата клиента: " + request.clientPayment();
+        + "Что нужно забрать: " + request.pickupItems();
     String encodedText = URLEncoder.encode(shareText, StandardCharsets.UTF_8);
     String encodedUrl = URLEncoder.encode("https://t.me/uberi_ru_bot", StandardCharsets.UTF_8);
     return "https://t.me/share/url?url=" + encodedUrl + "&text=" + encodedText;

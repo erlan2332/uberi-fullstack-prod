@@ -22,20 +22,12 @@ public record LeadRequest(
     )
     String executionDate,
 
-    @NotBlank(message = "Время выполнения обязательно")
-    @Size(max = 80, message = "Время выполнения слишком длинное")
-    String executionTime,
-
     @NotBlank(message = "Адрес обязателен")
     @Size(max = 220, message = "Адрес слишком длинный")
     String address,
 
     @NotBlank(message = "Укажите, что нужно забрать")
     @Size(max = 600, message = "Описание слишком длинное")
-    String pickupItems,
-
-    @NotBlank(message = "Укажите сумму оплаты")
-    @Size(max = 80, message = "Сумма оплаты слишком длинная")
-    String clientPayment
+    String pickupItems
 ) {
 }
